@@ -40,6 +40,9 @@ class FormatButton extends StatelessWidget {
 
     final platform = Theme.of(context).platform;
 
+    return ElevatedButton(
+        onPressed: () => onTap(_nextFormat()), child: Text(_formatButtonText));
+
     return !kIsWeb &&
             (platform == TargetPlatform.iOS || platform == TargetPlatform.macOS)
         ? CupertinoButton(
