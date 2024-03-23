@@ -25,7 +25,7 @@ class StyledDropDownButton extends StatelessWidget {
 }
 
 ButtonStyleData selectedItemStyle = ButtonStyleData(
-  width: 160,
+  width: 120,
   padding: const EdgeInsets.only(left: 14, right: 14),
   decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(14),
@@ -34,7 +34,7 @@ ButtonStyleData selectedItemStyle = ButtonStyleData(
 
 DropdownStyleData itemsStyle = DropdownStyleData(
   elevation: 0,
-  width: 160,
+  width: 120,
   decoration: BoxDecoration(
     borderRadius: BorderRadius.circular(14),
     color: Colors.deepPurple.withOpacity(0.12),
