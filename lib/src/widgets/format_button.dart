@@ -1,9 +1,8 @@
 // Copyright 2019 Aleksander Woźniak
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:table_calendar/src/widgets/dropdown_button.dart';
 
 import '../shared/utils.dart' show CalendarFormat;
 
@@ -29,33 +28,23 @@ class FormatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final child = Container(
-      decoration: decoration,
-      padding: padding,
-      child: Text(
-        _formatButtonText,
-        style: textStyle,
-      ),
-    );
+    final items = availableCalendarFormats.values
+        .map((item) => DropdownMenuItem<String>(
+              value: item,
+              child: Text(
+                item,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ))
+        .toList();
 
-    final platform = Theme.of(context).platform;
+    return StyledDropDownButton(
+        selectedValue: availableCalendarFormats[calendarFormat]!,
+        items: items,
+        onChanged: (item) => onTap(select(item)));
 
     return ElevatedButton(
         onPressed: () => onTap(_nextFormat()), child: Text(_formatButtonText));
-
-    return !kIsWeb &&
-            (platform == TargetPlatform.iOS || platform == TargetPlatform.macOS)
-        ? CupertinoButton(
-            onPressed: () => onTap(_nextFormat()),
-            padding: EdgeInsets.zero,
-            child: child,
-          )
-        : InkWell(
-            borderRadius:
-                decoration.borderRadius?.resolve(Directionality.of(context)),
-            onTap: () => onTap(_nextFormat()),
-            child: child,
-          );
   }
 
   String get _formatButtonText => showsNextFormat
@@ -66,7 +55,17 @@ class FormatButton extends StatelessWidget {
     final formats = availableCalendarFormats.keys.toList();
     int id = formats.indexOf(calendarFormat);
     id = (id + 1) % formats.length;
-
     return formats[id];
+  }
+
+  CalendarFormat select(String? format) {
+    debugPrint(format);
+
+    final List<String> list = availableCalendarFormats.values.toList();
+    int index = list.indexOf(format!);
+    final CalendarFormat calendarFormat =
+        availableCalendarFormats.keys.toList()[index];
+
+    return calendarFormat;
   }
 }
