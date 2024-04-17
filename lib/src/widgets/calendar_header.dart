@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 import '../customization/header_style.dart';
 import '../shared/utils.dart' show CalendarFormat, DayBuilder;
 import 'custom_icon_button.dart';
-import 'format_button.dart';
 
 class CalendarHeader extends StatelessWidget {
   final dynamic locale;
@@ -21,6 +20,7 @@ class CalendarHeader extends StatelessWidget {
   final ValueChanged<CalendarFormat> onFormatButtonTap;
   final Map<CalendarFormat, String> availableCalendarFormats;
   final DayBuilder? headerTitleBuilder;
+  final Widget formatButton;
 
   const CalendarHeader({
     Key? key,
@@ -34,6 +34,7 @@ class CalendarHeader extends StatelessWidget {
     required this.onHeaderLongPress,
     required this.onFormatButtonTap,
     required this.availableCalendarFormats,
+    required this.formatButton,
     this.headerTitleBuilder,
   }) : super(key: key);
 
@@ -73,17 +74,7 @@ class CalendarHeader extends StatelessWidget {
           if (headerStyle.formatButtonVisible &&
               availableCalendarFormats.length > 1)
             Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: FormatButton(
-                onTap: onFormatButtonTap,
-                availableCalendarFormats: availableCalendarFormats,
-                calendarFormat: calendarFormat,
-                decoration: headerStyle.formatButtonDecoration,
-                padding: headerStyle.formatButtonPadding,
-                textStyle: headerStyle.formatButtonTextStyle,
-                showsNextFormat: headerStyle.formatButtonShowsNext,
-              ),
-            ),
+                padding: const EdgeInsets.only(left: 8.0), child: formatButton),
           if (headerStyle.rightChevronVisible)
             CustomIconButton(
               icon: headerStyle.rightChevronIcon,

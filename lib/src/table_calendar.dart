@@ -153,6 +153,8 @@ class TableCalendar<T> extends StatefulWidget {
   /// Use those to fully tailor the UI.
   final CalendarBuilders<T> calendarBuilders;
 
+  final Widget formatButton;
+
   /// Current mode of range selection.
   ///
   /// * `RangeSelectionMode.disabled` - range selection is always off.
@@ -210,6 +212,7 @@ class TableCalendar<T> extends StatefulWidget {
     required DateTime focusedDay,
     required DateTime firstDay,
     required DateTime lastDay,
+    required Widget this.formatButton,
     DateTime? currentDay,
     this.locale,
     this.rangeStartDay,
@@ -454,6 +457,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
             valueListenable: _focusedDay,
             builder: (context, value, _) {
               return CalendarHeader(
+                formatButton: widget.formatButton,
                 headerTitleBuilder: widget.calendarBuilders.headerTitleBuilder,
                 focusedMonth: value,
                 onLeftChevronTap: _onLeftChevronTap,
